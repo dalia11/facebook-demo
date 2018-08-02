@@ -1,0 +1,97 @@
+ Create DATABASE facebook ;
+Use facebook ;
+
+CREATE TABLE`users` (
+  `user_id` int(9) NOT NULL AUTO_INCREMENT,
+  `First_name` varchar(255) NOT NULL,
+  `Last_name` varchar(255) NOT NULL,
+  `Nickname` varchar(255) NULL,
+  `Email` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Gender` bit(1) NOT NULL,
+  `Birthday_Date` date NOT NULL,
+  `FB_Join_Date` date NOT NULL,
+  `aboutme` varchar(550) NULL,
+  `hometown` varchar(255) NULL,
+  `marital_status` varchar(255) NULL,
+  `userPic` varchar(200) NULL,
+  PRIMARY KEY (`user_id`)
+); 
+
+CREATE TABLE `facebook`.`phones` (
+
+  `user_id` INT NOT NULL,
+
+  `phone_no` VARCHAR(45) NOT NULL,
+
+  `type` VARCHAR(45) NULL,
+
+  PRIMARY KEY (`user_id`, `phone_no`));
+
+
+
+
+CREATE TABLE  `friend` (
+`userid` int(9) NOT NULL ,
+`friendid` int(9) NOT NULL ,
+`approved` BIT(1) NOT NULL,
+PRIMARY KEY (`userid`,`friendid`)
+
+
+);
+
+ALTER TABLE friend ADD foreign key (userid) references users (user_id);
+ALTER TABLE friend ADD foreign key (friendid) references users (user_id);
+ALTER TABLE phones ADD foreign key (user_id) references users (user_id);
+
+CREATE table post(
+    statpost text,
+    id int AUTO_INCREMENT ,
+    postedtime datetime ,
+    ispublic ENUM('t', 'f') ,
+    PRIMARY KEY(id),
+    user_id int(9),
+    img VARCHAR(255),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
+       
+);
+
+CREATE TABLE `facebook`.`emojis` (
+  `chars` VARCHAR(5) NOT NULL,
+  `image` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`chars`));
+
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':)', 'smile.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':d', 'teeth_smile.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':-o', 'what.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':p', 'tongue.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (';)', 'wink.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':(', 'sad.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':s', 'confused.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':|', '72_72.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':\'(', 'cry.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':$', 'red.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':@', 'angry.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('(A)', 'evil.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('(6)', 'devil.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES (':#', 'donttell.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('<:o)', 'party.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('8)', 'shades.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('<3', 'heart.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('(Y)', 'thumbs_up.gif');
+INSERT INTO `facebook`.`emojis` (`chars`, `image`) VALUES ('(n)', 'thumbs.gif');
+
+
+
+
+
+
+CREATE TABLE `like_unlike` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `postid` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
